@@ -16,6 +16,8 @@ import {
   WILAYAH_KERJA_LIST,
   TIKUS_SPECIES_LIST,
   LALAT_SPECIES_LIST,
+  LALAT_PELABUHAN_LIST,
+  LALAT_BANDARA_LIST,
   MUSIM_LIST,
   PERILAKU_MASYARAKAT_LIST,
 } from '../mockData';
@@ -187,7 +189,7 @@ export const RecordFormModal: React.FC<RecordFormModalProps> = ({
   const [perilakuMasyarakat, setPerilakuMasyarakat] = useState('Menampung Air Hujan');
 
   // Lalat fields
-  const [titikLokasiLalat, setTitikLokasiLalat] = useState('Pelabuhan Laut Balikpapan (Semayang)');
+  const [titikLokasiLalat, setTitikLokasiLalat] = useState('Pelabuhan Laut Balikpapan');
   const [jenisLalat, setJenisLalat] = useState('Musca domestica');
   const [indeksLalat, setIndeksLalat] = useState('1.4');
   const [statusIntervensiLalat, setStatusIntervensiLalat] = useState<
@@ -234,7 +236,7 @@ export const RecordFormModal: React.FC<RecordFormModalProps> = ({
         setPerilakuMasyarakat(initialRecord.perilakuMasyarakat || 'Menampung Air Hujan');
       } else if (type === 'lalat') {
         setTitikLokasiLalat(
-          initialRecord.titikLokasi || 'Pelabuhan Laut Balikpapan (Semayang)'
+          initialRecord.titikLokasi || 'Pelabuhan Laut Balikpapan'
         );
         setJenisLalat(initialRecord.jenisLalat || 'Musca domestica');
         setIndeksLalat((initialRecord.indeksLalat ?? 1.4).toString());
@@ -272,7 +274,7 @@ export const RecordFormModal: React.FC<RecordFormModalProps> = ({
       setKelembapan('78');
       setMusim('Penghujan');
       setPerilakuMasyarakat('Menampung Air Hujan');
-      setTitikLokasiLalat('Pelabuhan Laut Balikpapan (Semayang)');
+      setTitikLokasiLalat('Pelabuhan Laut Balikpapan');
       setJenisLalat('Musca domestica');
       setIndeksLalat('1.4');
       setStatusIntervensiLalat('Tidak Perlu Intervensi');
@@ -401,7 +403,7 @@ export const RecordFormModal: React.FC<RecordFormModalProps> = ({
         tanggal: d,
         tahun,
         bulan,
-        titikLokasi: titikLokasiLalat.trim() || 'Pelabuhan Laut Balikpapan (Semayang)',
+        titikLokasi: titikLokasiLalat.trim() || 'Pelabuhan Laut Balikpapan',
         jenisLalat: jenisLalat || 'Musca domestica',
         indeksLalat: idxVal,
         statusIntervensi: statusIntervensiLalat,
@@ -605,24 +607,38 @@ export const RecordFormModal: React.FC<RecordFormModalProps> = ({
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="block text-xs font-semibold text-slate-700 mb-1">
-                    Titik Pelabuhan atau Bandara
+                    Pilih Lokasi Pelabuhan atau Bandara
                   </label>
-                  <input
-                    type="text"
-                    required
-                    list="titik-pelabuhan-bandara-list"
+                  <select
                     value={titikLokasiLalat}
                     onChange={(e) => setTitikLokasiLalat(e.target.value)}
-                    placeholder="Contoh: Pelabuhan Laut Balikpapan / Pos Bandara SAMSS"
-                    className="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-900 focus:outline-none focus:border-[#3A4EFB]"
-                  />
-                  <datalist id="titik-pelabuhan-bandara-list">
-                    <option value="Pelabuhan Laut Balikpapan (Semayang) - Area TPS & Kantin" />
-                    <option value="Pos Bandara SAMSS Balikpapan - Area Kargo & Catering" />
-                    <option value="Pos Pelabuhan Kampung Baru - Dermaga & Kios Makanan" />
-                    <option value="Pelabuhan Kuala Samboja - Area Dermaga" />
-                    <option value="Pelabuhan Tana Paser (Pondong) - Area Kantin Pelabuhan" />
-                  </datalist>
+                    className="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-900 font-medium focus:outline-none focus:border-[#3A4EFB]"
+                  >
+                    <optgroup label="Pilihan Pelabuhan (Laut & Pos Pelabuhan)">
+                      {LALAT_PELABUHAN_LIST.map((loc) => (
+                        <option key={loc} value={loc}>
+                          {loc}
+                        </option>
+                      ))}
+                    </optgroup>
+                    <optgroup label="Pilihan Bandara (Bandar Udara)">
+                      {LALAT_BANDARA_LIST.map((loc) => (
+                        <option key={loc} value={loc}>
+                          {loc}
+                        </option>
+                      ))}
+                    </optgroup>
+                    {!LALAT_PELABUHAN_LIST.includes(titikLokasiLalat) &&
+                      !LALAT_BANDARA_LIST.includes(titikLokasiLalat) &&
+                      titikLokasiLalat && (
+                        <optgroup label="Lokasi Lainnya">
+                          <option value={titikLokasiLalat}>{titikLokasiLalat}</option>
+                        </optgroup>
+                      )}
+                  </select>
+                  <span className="text-[10px] text-slate-500 mt-0.5 block">
+                    Pilih pelabuhan (Balikpapan, Kuala Samboja, Tana Paser, Kampung Baru) atau bandara (SAMSS Balikpapan)
+                  </span>
                 </div>
 
                 <div>

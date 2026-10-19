@@ -742,6 +742,22 @@ export const LALAT_SPECIES_LIST = [
   'Stomoxys calcitrans',
 ];
 
+export const LALAT_PELABUHAN_LIST = [
+  'Pelabuhan Laut Balikpapan',
+  'Pelabuhan Kuala Samboja',
+  'Pelabuhan Tana Paser',
+  'Pos Kampung Baru',
+];
+
+export const LALAT_BANDARA_LIST = [
+  'Pos Bandara SAMSS Balikpapan',
+];
+
+export const LALAT_LOKASI_LIST = [
+  ...LALAT_PELABUHAN_LIST,
+  ...LALAT_BANDARA_LIST,
+];
+
 export const MUSIM_LIST = ['Kemarau', 'Penghujan', 'Pancaroba'];
 
 export const PERILAKU_MASYARAKAT_LIST = [

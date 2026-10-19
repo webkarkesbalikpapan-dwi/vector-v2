@@ -17,6 +17,8 @@ import {
   DEFAULT_LOCATIONS,
   MONTHS_ID,
   WILAYAH_KERJA_LIST,
+  LALAT_PELABUHAN_LIST,
+  LALAT_BANDARA_LIST,
 } from '../mockData';
 import {
   FilterBar,
@@ -251,12 +253,30 @@ const LalatSection: React.FC<{ onNavigate: (tab: string) => void }> = ({ onNavig
             onChange={(e) => setSelectedTitik(e.target.value)}
             className="px-3 py-2 text-xs font-medium bg-slate-50 border border-slate-200 rounded-xl text-slate-700 focus:outline-none focus:border-[#3A4EFB]"
           >
-            <option value="ALL">Semua Titik Pelabuhan / Bandara</option>
-            {titikOptions.map((t) => (
-              <option key={t} value={t}>
-                {t}
-              </option>
-            ))}
+            <option value="ALL">Semua Lokasi (Pelabuhan &amp; Bandara)</option>
+            <optgroup label="Pilihan Pelabuhan">
+              {LALAT_PELABUHAN_LIST.map((loc) => (
+                <option key={loc} value={loc}>
+                  {loc}
+                </option>
+              ))}
+            </optgroup>
+            <optgroup label="Pilihan Bandara">
+              {LALAT_BANDARA_LIST.map((loc) => (
+                <option key={loc} value={loc}>
+                  {loc}
+                </option>
+              ))}
+            </optgroup>
+            {titikOptions
+              .filter(
+                (t) => !LALAT_PELABUHAN_LIST.includes(t) && !LALAT_BANDARA_LIST.includes(t)
+              )
+              .map((t) => (
+                <option key={t} value={t}>
+                  {t}
+                </option>
+              ))}
           </select>
 
           <button

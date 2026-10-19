@@ -9,7 +9,13 @@ import {
   Users,
 } from 'lucide-react';
 import { useSurveillance } from '../context/SurveillanceContext';
-import { MONTHS_ID, WILAYAH_KERJA_LIST, LALAT_SPECIES_LIST } from '../mockData';
+import {
+  MONTHS_ID,
+  WILAYAH_KERJA_LIST,
+  LALAT_SPECIES_LIST,
+  LALAT_PELABUHAN_LIST,
+  LALAT_BANDARA_LIST,
+} from '../mockData';
 import {
   FilterBar,
   StatCard,
@@ -608,12 +614,30 @@ export const LalatDashboardPage: React.FC<{
               onChange={(e) => setSelectedTitik(e.target.value)}
               className="px-3 py-2 text-xs font-medium bg-slate-50 border border-slate-200 rounded-xl text-slate-700 focus:outline-none focus:border-teal-600"
             >
-              <option value="ALL">Semua Titik Pelabuhan / Bandara</option>
-              {titikOptions.map((t) => (
-                <option key={t} value={t}>
-                  {t}
-                </option>
-              ))}
+              <option value="ALL">Semua Lokasi (Pelabuhan &amp; Bandara)</option>
+              <optgroup label="Pilihan Pelabuhan">
+                {LALAT_PELABUHAN_LIST.map((loc) => (
+                  <option key={loc} value={loc}>
+                    {loc}
+                  </option>
+                ))}
+              </optgroup>
+              <optgroup label="Pilihan Bandara">
+                {LALAT_BANDARA_LIST.map((loc) => (
+                  <option key={loc} value={loc}>
+                    {loc}
+                  </option>
+                ))}
+              </optgroup>
+              {titikOptions
+                .filter(
+                  (t) => !LALAT_PELABUHAN_LIST.includes(t) && !LALAT_BANDARA_LIST.includes(t)
+                )
+                .map((t) => (
+                  <option key={t} value={t}>
+                    {t}
+                  </option>
+                ))}
             </select>
           </div>
 
