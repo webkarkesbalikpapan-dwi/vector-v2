@@ -1,0 +1,6 @@
+{
+  "name": "VECTO | Sistem Informasi Surveilans Vektor - BKK Kelas I Balikpapan",
+  "description": "Platform Sistem Informasi dan Visualisasi Data Surveilans Vektor (Tikus dan Nyamuk) Balai Kekarantinaan Kesehatan Kelas I Balikpapan.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
